@@ -1,0 +1,19 @@
+{
+  "name": "angualar_test",
+  "version": "0.0.0",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.4.1",
+    "angular-bootstrap": "^0.13.4",
+    "jquery": "^2.1.4",
+    "perfect-scrollbar": "0.6.10",
+    "bootstrap-sass": "^3.3.7"
+  }
+}
