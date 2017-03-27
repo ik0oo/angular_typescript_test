@@ -31,6 +31,10 @@ var paths = {
 		src: ["assets/imgs/*.{png,jpeg,jpg}"],
 		dest: "./build/imgs"
 	},
+	data: {
+		src: ["app/data/*.json"],
+		dest: "./build/data"
+	},
 	dist: "./build"
 };
 
@@ -60,7 +64,7 @@ gulp.task("watch", ["serve"], function () {
 gulp.task("build:prod", ["build"], function (cb) {
 	runseq("minify", cb);
 });
-gulp.task("build", ["compile:typescript", "compile:sass", "bower", "html", "copy:fonts", "copy:imgs"]);
+gulp.task("build", ["compile:typescript", "compile:sass", "bower", "html", "copy:fonts", "copy:imgs", "copy:data"]);
 gulp.task("compile:typescript", function () {
 	var tsResult = gulp
 		.src(paths.tscripts.src)
@@ -118,6 +122,11 @@ gulp.task("copy:fonts", function () {
 gulp.task("copy:imgs", function () {
 	gulp.src(paths.imgs.src)
 		.pipe(gulp.dest(paths.imgs.dest));
+});
+
+gulp.task("copy:data", function () {
+	gulp.src(paths.data.src)
+		.pipe(gulp.dest(paths.data.dest));
 });
 
 // ** Clean ** //

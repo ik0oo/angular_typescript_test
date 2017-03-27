@@ -1,0 +1,168 @@
+[{
+  "name": "Григорьева Г.Г.",
+  "specialty": "Терапевт",
+  "mu": "ГП №128",
+  "room": "к.110",
+  "step": 30,
+  "schedule": {
+    "hours": {
+      "start": "10:00",
+      "end": "20:00"
+    },
+    "defaultDays": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "createdForTime": 2
+  },
+  "ranges": {
+    "appointment": {
+      "defaultDays": [{
+        "start": "10:00",
+        "end": "14:00"
+      }, {
+        "start": "15:00",
+        "end": "20:00"
+      }]
+    },
+    "free": {
+      "defaultDays": [{
+        "start": "14:00",
+        "end": "15:00"
+      }]
+    },
+    "learning": null,
+    "documents": null
+  },
+  "patients": [{
+    "id": 1,
+    "date": "28.03.2017",
+    "time": "10:00"
+  }, {
+    "id": 2,
+    "date": "28.03.2017",
+    "time": "10:00"
+  }, {
+    "id": 3,
+    "date": "28.03.2017",
+    "time": "10:30"
+  }]
+}, {
+  "name": "Сидорова С.С.",
+  "specialty": "Терапевт",
+  "mu": "ГП №128",
+  "room": "к.120",
+  "step": 30,
+  "schedule": {
+    "hours": {
+      "start": "08:00",
+      "end": "15:00"
+    },
+    "defaultDays": ["monday", "tuesday", "wednesday", "thursday"],
+    "createdForTime": 1
+  },
+  "ranges": {
+    "appointment": {
+      "defaultDays": [{
+        "start": "10:00",
+        "end": "15:00"
+      }]
+    },
+    "free": null,
+    "learning": {
+      "monday": [{
+        "start": "10:00",
+        "end": "15:00"
+      }]
+    },
+    "documents": null
+  },
+  "patients": [{
+    "id": 3,
+    "date": "",
+    "time": ""
+  }]
+}, {
+  "name": "Сидорова С.С.",
+  "specialty": "Терапевт",
+  "mu": "ГП №128",
+  "room": "к.130",
+  "step": 10,
+  "schedule": {
+    "hours": {
+      "start": "14:00",
+      "end": "18:00"
+    },
+    "defaultDays": ["friday", "saturday"],
+    "createdForTime": 1
+  },
+  "ranges": {
+    "appointment": {
+      "defaultDays": [{
+        "start": "14:00",
+        "end": "18:00"
+      }]
+    },
+    "free": null,
+    "learning": null,
+    "documents": null
+  },
+  "patients": null
+}, {
+  "name": "Елисеева Е.Е.",
+  "specialty": "Офтальмолог",
+  "mu": "ГП №128",
+  "room": "к.140",
+  "step": 30,
+  "schedule": {
+    "hours": {
+      "start": "08:00",
+      "end": "18:00"
+    },
+    "defaultDays": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "createdForTime": 2
+  },
+  "ranges": {
+    "appointment": {
+      "defaultDays": [{
+        "start": "10:00",
+        "end": "17:45"
+      }]
+    },
+    "free": null,
+    "learning": null,
+    "documents": {
+      "defaultDays": [{
+        "start": "14:30",
+        "end": "14:55"
+      }, {
+        "start": "16:20",
+        "end": "16:40"
+      }]
+    }
+  },
+  "patients": null
+}, {
+  "name": "Константинова-Щедрина А.А.",
+  "specialty": "Офтальмолог",
+  "mu": "ГП №128",
+  "room": "к.150",
+  "step": 30,
+  "schedule": {
+    "hours": {
+      "start": "09:00",
+      "end": "21:00"
+    },
+    "defaultDays": ["tuesday", "wednesday", "thursday", "friday", "saturday"]
+  },
+  "ranges": {
+    "appointment": {
+      "defaultDays": [{
+        "start": "09:00",
+        "end": "21:00"
+      }],
+      "wednesday": null
+    },
+    "free": null,
+    "learning": null,
+    "documents": null
+  },
+  "patients": null
+}]

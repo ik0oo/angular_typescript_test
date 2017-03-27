@@ -49,6 +49,8 @@ module App {
                                         btn-radio="button.id"
                                         ng-bind="button.name"></label>
                             </div>
+
+                            <specialist-list-directive></specialist-list-directive>
                         </content-field>
                     </block-directive>
                 </div>
