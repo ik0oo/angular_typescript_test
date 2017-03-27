@@ -9,11 +9,12 @@ module App {
         return {
             restrict: 'E',
             template: `
-                <div>
+                <div class="layout">
                     <sidebar-directive></sidebar-directive>
                     <calendar-directive></calendar-directive>
                 </div>
-            `
+            `,
+            scope: {}
         }
     }
 }

@@ -8,9 +8,15 @@ module App {
     function directive (): ng.IDirective {
         return {
             restrict: 'E',
+            replace: true,
             template: `
-                <div>sidebar</div>
-            `
+                <div class="sidebar">
+                    <patient-directive></patient-directive>
+                    <recording-date-directive></recording-date-directive>
+                    <specialist-block-directive></specialist-block-directive>
+                </div>
+            `,
+            scope: {}
         }
     }
 }

@@ -24,8 +24,8 @@ var paths = {
 		dest: "./build/styles"
 	},
 	fonts: {
-		src: ["bower_components/bootstrap/fonts/*.{eot,svg,ttf,woff,woff2}"],
-		dest: "./build/fonts"
+		src: ["bower_components/bootstrap-sass/assets/fonts/bootstrap/*.{eot,svg,ttf,woff,woff2}"],
+		dest: "./build/fonts/bootstrap"
 	},
 	imgs: {
 		src: ["assets/imgs/*.{png,jpeg,jpg}"],

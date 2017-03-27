@@ -1,31 +1,20 @@
 module App {
     'use strict';
 
-    const BUTTONS_GROUP = [{
-        id: 1,
-        name: '1 день'
-    }, {
-        id: 2,
-        name: '2 дня'
-    }, {
-        id: 3,
-        name: 'Неделя'
-    }];
-
     angular
         .module(Module)
         .directive('calendarDirective', directive);
 
 
-    class controller {
-        constructor (private $scope: ng.IScope) {
+    class testCtrl {
+        constructor (private $scope: ng.IScope, private CALENDAR_BUTTONS_GROUP) {
             const $ctrl = this;
-
-            $scope.$watch('$ctrl.radioModel', value => console.log(value));
+            //
+            //$scope.$watch('$ctrl.radioModel', value => console.log(value));
 
             (<any>Object).assign($ctrl, {
-                radioModel: BUTTONS_GROUP[0].id,
-                BUTTONS_GROUP
+                radioModel: CALENDAR_BUTTONS_GROUP[0].id,
+                CALENDAR_BUTTONS_GROUP
             });
         }
     }
@@ -33,30 +22,27 @@ module App {
     function directive (): ng.IDirective {
         return {
             restrict: 'E',
+            replace: true,
             template: `
-                <div>
-                    <header class="row">
-                        <div class="col-xs-9">
-                            <h2>Расписание специалистов</h2>
-                        </div>
+                <div class="calendar">
+                    <header class="calendar__header block">
+                        <h2>Расписание специалистов</h2>
 
-                        <div class="col-xs-3">
-                            <div class="btn-group">
-                                <label
-                                        ng-repeat="button in $ctrl.BUTTONS_GROUP"
-                                        class="btn btn-success btn-sm"
-                                        ng-model="$ctrl.radioModel"
-                                        btn-radio="button.id"
-                                        ng-bind="button.name"></label>
-                            </div>
+                        <div class="btn-group">
+                            <label
+                                    ng-repeat="button in $ctrl.CALENDAR_BUTTONS_GROUP"
+                                    class="btn btn-success btn-sm"
+                                    ng-model="$ctrl.radioModel"
+                                    btn-radio="button.id"
+                                    ng-bind="button.name"></label>
                         </div>
                     </header>
                 <div>
             `,
+            scope: {},
             controllerAs: '$ctrl',
             bindToController: true,
-            link () {},
-            controller
+            controller: testCtrl
         }
     }
 }

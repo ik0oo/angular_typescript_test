@@ -1,0 +1,14 @@
+.specialists {
+
+  &__input {
+    margin-bottom: 15px;
+  }
+
+  &__button-group {
+    display: flex;
+
+    &-item {
+      flex: auto;
+    }
+  }
+}
