@@ -6,9 +6,35 @@
 
   &__button-group {
     display: flex;
+    margin-bottom: 50px;
 
     &-item {
       flex: auto;
+    }
+  }
+
+  &__list {
+    background: $cl-white;
+
+    &-item {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      border-bottom: 1px solid $cl-gray-e8;
+
+      &--inner {
+        padding-left: 30px;
+        font-weight: 400;
+      }
+
+      &--light {
+        font-weight: 400;
+      }
+
+      &-input {
+        min-width: 15px;
+        margin: 0 5px 0 0 !important;
+      }
     }
   }
 }

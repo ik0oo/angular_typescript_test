@@ -1,0 +1,7 @@
+<label class="specialists__list-item specialists__list-item--light">
+    <input
+            type="checkbox"
+            ng-model="$ctrl.models[specialty.id]"
+            class="specialists__list-item-input" />
+    <span ng-bind="specialty.name + ' (' + specialty.specialty + ', к.' + specialty.room + ')'"></span>
+</label>

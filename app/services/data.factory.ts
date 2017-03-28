@@ -6,7 +6,8 @@ module Services {
         .factory('dataFactory', ['$http', ($http) => new factory($http)]);
 
     export interface IDataFactory {
-
+        getSpecialists(): void;
+        getPatients(): void;
     }
 
     class factory implements IDataFactory {
@@ -16,7 +17,7 @@ module Services {
 
         private getData (fileName: string) {
             return this.$http
-                .get(`/assets/data/${fileName}.json`)
+                .get(`/data/${fileName}.json`)
                 .then(data => data)
                 .catch(err => err)
         }

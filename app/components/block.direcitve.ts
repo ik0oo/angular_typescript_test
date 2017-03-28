@@ -17,14 +17,21 @@ module App {
             replace: true,
             template: `
                 <div ng-class="{'block': true, 'block--noborder': $ctrl.lastChild}">
-                    <header class="block__header" ng-bind="$ctrl.header"></header>
+                    <header class="block__header">
+                        <span ng-bind="$ctrl.header"></span>
+                        <span
+                                class="block__header-counter"
+                                ng-bind="$ctrl.counter && '(' + $ctrl.counter.selected + '/' + $ctrl.counter.from + ')'"></span>
+                    </header>
+
 
                     <div ng-transclude="contentField"></div>
                 </div>
             `,
             scope: {
                 header: '<',
-                lastChild: '<'
+                lastChild: '<',
+                counter: '<'
             },
             transclude: {
                 buttonField: '?buttonField',

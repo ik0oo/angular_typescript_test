@@ -6,15 +6,48 @@ module App {
         .directive('specialistBlockDirective', directive);
 
     class controller {
-        constructor (private SPECIALISTS_BUTTONS_GROUP) {
+        /*@ngInject*/
+        constructor (
+            private SPECIALISTS_BUTTONS_GROUP,
+            private SPECIALTY_TYPES,
+            private dataFactory: Services.IDataFactory) {
+
             const $ctrl = this;
 
             (<any>Object).assign($ctrl, {
                 header: 'Специалисты',
                 searchText: 'Введите текст для поиска',
-                radioModel: SPECIALISTS_BUTTONS_GROUP[0].id,
-                SPECIALISTS_BUTTONS_GROUP
+                radioModel: SPECIALTY_TYPES.SPECIALTY,
+                SPECIALISTS_BUTTONS_GROUP,
+                counting: {
+                    selected: 0,
+                    from: 0
+                }
             });
+
+            $ctrl.onInit();
+        }
+
+        onInit () {
+            const $ctrl = this;
+
+            $ctrl.dataFactory
+                .getSpecialists()
+                .then(specList => {
+                    $ctrl.specialistsList =  specList.data;
+                    $ctrl.counting.from = $ctrl.specialistsList.length;
+                });
+        }
+
+        onChangeInList (newVal) {
+            const $ctrl = this;
+            let counter = 0;
+
+            for (let item in newVal) {
+                newVal[item] && counter++;
+            }
+
+            $ctrl.counting.selected = counter;
         }
     }
 
@@ -26,6 +59,7 @@ module App {
                 <div>
                     <block-directive
                             header="$ctrl.header"
+                            counter="$ctrl.counting"
                             last-child="true">
 
                         <content-field class="specialists">
@@ -46,11 +80,14 @@ module App {
                                         ng-repeat="button in $ctrl.SPECIALISTS_BUTTONS_GROUP"
                                         class="btn btn-default btn-sm specialists__button-group-item"
                                         ng-model="$ctrl.radioModel"
-                                        btn-radio="button.id"
+                                        btn-radio="button.type"
                                         ng-bind="button.name"></label>
                             </div>
 
-                            <specialist-list-directive></specialist-list-directive>
+                            <specialist-list-directive
+                                    on-change="$ctrl.onChangeInList($newVal)"
+                                    list="$ctrl.specialistsList"
+                                    filter-type="$ctrl.radioModel"></specialist-list-directive>
                         </content-field>
                     </block-directive>
                 </div>

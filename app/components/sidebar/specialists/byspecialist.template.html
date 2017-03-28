@@ -1,0 +1,19 @@
+<label class="specialists__list-item">
+    <input
+            type="checkbox"
+            ng-change="$ctrl.onChangeSpecialty(specialtyKey, specialty)"
+            ng-model="$ctrl.specialtyModels[specialtyKey]"
+            class="specialists__list-item-input" />
+    <span ng-bind="specialtyKey"></span>
+</label>
+
+<div ng-repeat="specialist in specialty">
+
+    <label class="specialists__list-item specialists__list-item--inner">
+        <input
+                type="checkbox"
+                ng-model="$ctrl.models[specialist.id]"
+                class="specialists__list-item-input" />
+        <span ng-bind="specialist.name + ' (к.' + specialist.room + ')' "></span>
+    </label>
+</div>
