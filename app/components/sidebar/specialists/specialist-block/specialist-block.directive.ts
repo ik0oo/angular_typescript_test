@@ -100,7 +100,7 @@ module App {
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: 'components/sidebar/specialists/specialist-block.directive.template.html',
+            templateUrl: 'components/sidebar/specialists/specialist-block/specialist-block.directive.template.html',
             scope: {
                 handler: '&'
             },

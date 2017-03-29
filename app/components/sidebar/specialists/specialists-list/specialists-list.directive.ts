@@ -17,8 +17,8 @@ module App {
                 specialtyModels: {},
                 SPECIALTY_TYPES,
                 templates: {
-                    [SPECIALTY_TYPES.SPECIALTY]: "components/sidebar/specialists/byspecialist.template.html",
-                    [SPECIALTY_TYPES.ALPHABET]:  "components/sidebar/specialists/byalphabet.template.html"
+                    [SPECIALTY_TYPES.SPECIALTY]: "components/sidebar/specialists/specialists-list/byspecialist.template.html",
+                    [SPECIALTY_TYPES.ALPHABET]:  "components/sidebar/specialists/specialists-list/byalphabet.template.html"
                 }
             });
 
