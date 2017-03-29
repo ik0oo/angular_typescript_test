@@ -79,7 +79,7 @@ module App {
             }
 
             $ctrl.counting.selected = counter;
-            $ctrl.handler({$data: arr});
+            $ctrl.handler({$specialists: arr});
         }
 
         private clearSearch () {

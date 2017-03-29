@@ -9,7 +9,9 @@ module App {
         constructor() {
             const $ctrl = this;
 
-            (<any>Object).assign($ctrl, {});
+            (<any>Object).assign($ctrl, {
+
+            });
         }
     }
 
@@ -26,9 +28,10 @@ module App {
                     <button
                             type="button"
                             class="btn btn-success btn-sm custom-dropdown__button"
+                            ng-disabled="$ctrl.isDisabled"
                             dropdown-toggle>
 
-                        <span class="glyphicon glyphicon-filter custom-dropdown__icon"></span>
+                        <span class="{{$ctrl.icon + ' custom-dropdown__icon'}}"></span>
                         <span class="caret custom-dropdown__caret"></span>
                     </button>
                     <ul
@@ -48,7 +51,9 @@ module App {
                 </div>
             `,
             scope: {
-                list: '<'
+                list: '<',
+                icon: '@',
+                isDisabled: '<'
             },
             controllerAs: '$ctrl',
             bindToController: true,

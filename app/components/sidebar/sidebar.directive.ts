@@ -6,17 +6,34 @@ module App {
         .directive('sidebarDirective', directive);
 
     class controller {
-        constructor () {
+        constructor (private dataFactory: Services.IDataFactory) {
             const $ctrl = this;
 
             (<any>Object).assign($ctrl, {
-                specialistsList: []
+
             });
+
+            $ctrl.onInit();
         }
 
-        private handleSpecialistsList (data) {
-            this.specialistsList = data;
-            console.log(this.specialistsList);
+        private onInit () {
+            const $ctrl = this;
+
+            $ctrl.dataFactory
+                .getPatients()
+                .then(patients => {
+                    $ctrl.patientsList = patients.data;
+                })
+        }
+
+        private handleSpecialistsList (specialists) {
+            this.selectedSpecialists = specialists;
+            console.log(arguments);
+        }
+
+        private handlePatient (patient) {
+            this.selectedPatient = patient;
+            console.log(arguments);
         }
     }
 
@@ -26,10 +43,13 @@ module App {
             replace: true,
             template: `
                 <div class="sidebar">
-                    <patient-directive></patient-directive>
+                    <patient-directive
+                        handler="$ctrl.handlePatient($patient)"
+                        patients-list="$ctrl.patientsList"></patient-directive>
+
                     <recording-date-directive></recording-date-directive>
                     <specialist-block-directive
-                        handler="$ctrl.handleSpecialistsList($data)"></specialist-block-directive>
+                        handler="$ctrl.handleSpecialistsList($specialists)"></specialist-block-directive>
                 </div>
             `,
             scope: {},

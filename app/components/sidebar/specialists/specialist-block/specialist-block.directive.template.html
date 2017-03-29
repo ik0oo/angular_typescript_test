@@ -6,40 +6,30 @@
 
         <button-field>
             <custom-dropdown-directive
+                    icon="glyphicon glyphicon-filter"
                     list="$ctrl.SPECIALISTS_MENU_LIST"></custom-dropdown-directive>
         </button-field>
 
         <content-field class="specialists">
-            <div class="form-group">
-                <div class="input-group specialists__input">
-                    <input
-                            type="text"
-                            class="form-control input-sm"
-                            ng-model="$ctrl.search"
-                            typeahead-min-length="$ctrl.searchMinLength"
-                            typeahead-no-results="$ctrl.searchNoResults"
-                            typeahead-on-select="$ctrl.searchOnSelect($item, $model, $label, $event)"
-                            typeahead="item as item.name for item in $ctrl.specialistsList | filter:$viewValue"
-                            typeahead="item as item.specialty for item in $ctrl.specialistsList | filter:$viewValue"
-                            placeholder="{{$ctrl.searchText}}" />
 
-                    <span
-                            ng-if="$ctrl.search"
-                            ng-click="$ctrl.clearSearch()"
-                            class="glyphicon glyphicon-remove-circle specialists__clear-button text-danger"></span>
+            <autocomplete-directive
+                    icon="glyphicon glyphicon-search"
+                    result="$ctrl.search"
+                    no-results="$ctrl.searchNoResults"
+                    no-results-text="$ctrl.searchNoResultsText"
+                    on-clear="$ctrl.clearSearch()">
 
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-sm btn-secondary">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                    </span>
-
-                </div>
-                <span
-                        class="error text-danger"
-                        ng-if="$ctrl.searchNoResults && $ctrl.search"
-                        ng-bind="$ctrl.searchNoResultsText"></span>
-            </div>
+                <input
+                    type="text"
+                    class="form-control input-sm"
+                    ng-model="$ctrl.search"
+                    typeahead-min-length="$ctrl.searchMinLength"
+                    typeahead-no-results="$ctrl.searchNoResults"
+                    typeahead-on-select="$ctrl.searchOnSelect($item, $model, $label, $event)"
+                    typeahead="item as item.name for item in $ctrl.specialistsList | filter:$viewValue"
+                    typeahead="item as item.specialty for item in $ctrl.specialistsList | filter:$viewValue"
+                    placeholder="{{$ctrl.searchText}}" />
+            </autocomplete-directive>
 
             <div class="btn-group specialists__button-group">
                 <label

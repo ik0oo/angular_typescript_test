@@ -1,0 +1,12 @@
+.patient {
+  padding: 10px 0;
+  color: $cl-green-24;
+
+  &__item {
+    font-weight: 600;
+
+    &:not(:last-child) {
+      margin-bottom: 5px;
+    }
+  }
+}

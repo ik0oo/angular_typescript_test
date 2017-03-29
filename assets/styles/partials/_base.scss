@@ -2,9 +2,11 @@
 @import "reset";
 @import "layout";
 
+@import "components/autocomplete";
 @import "components/block";
 @import "components/calendar";
+@import "components/custom-dropdown";
+@import "components/patient";
 @import "components/sidebar";
 @import "components/specialists";
-@import "components/custom-dropdown";
 
