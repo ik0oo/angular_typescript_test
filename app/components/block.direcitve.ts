@@ -18,10 +18,14 @@ module App {
             template: `
                 <div ng-class="{'block': true, 'block--noborder': $ctrl.lastChild}">
                     <header class="block__header">
-                        <span ng-bind="$ctrl.header"></span>
-                        <span
-                                class="block__header-counter"
-                                ng-bind="$ctrl.counter && '(' + $ctrl.counter.selected + '/' + $ctrl.counter.from + ')'"></span>
+                        <div>
+                            <span ng-bind="$ctrl.header"></span>
+                            <span
+                                    class="block__header-counter"
+                                    ng-bind="$ctrl.counter && '(' + $ctrl.counter.selected + '/' + $ctrl.counter.from + ')'"></span>
+                        </div>
+
+                        <div ng-transclude="buttonField"></div>
                     </header>
 
 

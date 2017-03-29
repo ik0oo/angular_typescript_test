@@ -17,6 +17,17 @@ module App {
             (<any>Object).assign($ctrl, {
                 header: 'Специалисты',
                 searchText: 'Введите текст для поиска',
+                searchNoResultsText: 'Совпадений не найдено',
+                searchMinLength: 4,
+                SPECIALISTS_MENU_LIST: [{
+                    action: $ctrl.selectAll.bind($ctrl),
+                    name: 'Выбрать все',
+                    icon: 'glyphicon glyphicon-ok'
+                }, {
+                    action: $ctrl.cancelAll.bind($ctrl),
+                    name: 'Отменить все выбранные',
+                    icon: 'glyphicon glyphicon-remove'
+                }],
                 radioModel: SPECIALTY_TYPES.SPECIALTY,
                 SPECIALISTS_BUTTONS_GROUP,
                 counting: {
@@ -28,7 +39,7 @@ module App {
             $ctrl.onInit();
         }
 
-        onInit () {
+        private onInit () {
             const $ctrl = this;
 
             $ctrl.dataFactory
@@ -39,15 +50,49 @@ module App {
                 });
         }
 
-        onChangeInList (newVal) {
+        private selectAll () {
+            const $ctrl = this;
+
+            $ctrl.searchSelected = $ctrl.specialistsList.map(({id}) => {
+                return {id, value: true};
+            });
+        }
+
+        private cancelAll () {
+            const $ctrl = this;
+
+            $ctrl.searchSelected = $ctrl.specialistsList.map(({id}) => {
+                return {id, value: false};
+            });
+        }
+
+        private onChangeInList (newVal) {
             const $ctrl = this;
             let counter = 0;
+            let arr = [];
 
-            for (let item in newVal) {
-                newVal[item] && counter++;
+            for (let key in newVal) {
+                if (newVal[key]) {
+                    counter++;
+                    arr.push(key);
+                }
             }
 
             $ctrl.counting.selected = counter;
+            $ctrl.handler({$data: arr});
+        }
+
+        private clearSearch () {
+            const $ctrl = this;
+
+            $ctrl.search = '';
+            $ctrl.searchNoResults = false;
+        }
+
+        private searchOnSelect (item, model, label, event) {
+            const $ctrl = this;
+
+            $ctrl.searchSelected = item.id;
         }
     }
 
@@ -55,44 +100,10 @@ module App {
         return {
             restrict: 'E',
             replace: true,
-            template: `
-                <div>
-                    <block-directive
-                            header="$ctrl.header"
-                            counter="$ctrl.counting"
-                            last-child="true">
-
-                        <content-field class="specialists">
-                            <div class="input-group specialists__input">
-                                <input
-                                        type="text"
-                                        class="form-control input-sm"
-                                        placeholder="{{$ctrl.searchText}}" />
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-sm btn-secondary">
-                                        <span class="glyphicon glyphicon-search"></span>
-                                    </button>
-                                </span>
-                            </div>
-
-                            <div class="btn-group specialists__button-group">
-                                <label
-                                        ng-repeat="button in $ctrl.SPECIALISTS_BUTTONS_GROUP"
-                                        class="btn btn-default btn-sm specialists__button-group-item"
-                                        ng-model="$ctrl.radioModel"
-                                        btn-radio="button.type"
-                                        ng-bind="button.name"></label>
-                            </div>
-
-                            <specialist-list-directive
-                                    on-change="$ctrl.onChangeInList($newVal)"
-                                    list="$ctrl.specialistsList"
-                                    filter-type="$ctrl.radioModel"></specialist-list-directive>
-                        </content-field>
-                    </block-directive>
-                </div>
-            `,
-            scope: {},
+            templateUrl: 'components/sidebar/specialists/specialist-block.directive.template.html',
+            scope: {
+                handler: '&'
+            },
             controllerAs: '$ctrl',
             bindToController: true,
             controller

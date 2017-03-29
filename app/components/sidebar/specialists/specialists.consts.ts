@@ -16,6 +16,6 @@ module App {
 
     angular
         .module(Module)
-        .constant('SPECIALISTS_BUTTONS_GROUP', SPECIALISTS_BUTTONS_GROUP)
-        .constant('SPECIALTY_TYPES', SPECIALTY_TYPES);
+        .constant('SPECIALTY_TYPES', SPECIALTY_TYPES)
+        .constant('SPECIALISTS_BUTTONS_GROUP', SPECIALISTS_BUTTONS_GROUP);
 }

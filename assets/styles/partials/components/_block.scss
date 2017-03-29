@@ -19,6 +19,9 @@
   }
 
   &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding-left: 15px;
     margin-bottom: 5px;
     text-transform: uppercase;

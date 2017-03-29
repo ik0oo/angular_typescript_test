@@ -22,10 +22,22 @@ module App {
                 }
             });
 
-            $scope.$watch('$ctrl.models', (newVal) => $ctrl.onChange({$newVal: newVal}), true);
+            $scope.$watch('$ctrl.models', newVal => $ctrl.onChange({$newVal: newVal}), true);
+            $scope.$watch('$ctrl.selected', $ctrl.onSelectByParent.bind($ctrl))
         }
 
-        onChangeSpecialty (key, specialty) {
+        private onSelectByParent (newVal) {
+            const $ctrl = this;
+
+            if (newVal == null) return false;
+
+            if (Object.prototype.toString.call(newVal) === '[object Array]')
+                return newVal.forEach(item => $ctrl.models[item.id] = item.value);
+
+            $ctrl.models[newVal] = true;
+        }
+
+        private onChangeSpecialty (key, specialty) {
             const $ctrl = this;
             const state = $ctrl.specialtyModels[key];
 
@@ -34,7 +46,7 @@ module App {
             });
         }
 
-        filterBySpecialists (list: any) {
+        private filterBySpecialists (list: any) {
             const specList = {};
 
             list.forEach(({specialty, name, room, id}) => {
@@ -50,7 +62,7 @@ module App {
             return specList;
         }
 
-        filterByAlphabet (list: any) {
+        private filterByAlphabet (list: any) {
             return list.map(({specialty, name, room, id}) => {
                 return {
                     specialty,
@@ -61,7 +73,7 @@ module App {
             });
         }
 
-        filter (type, list) {
+        private filter (type, list) {
             const $ctrl = this;
 
             if (!list) return;
@@ -98,7 +110,8 @@ module App {
             scope: {
                 list: '<',
                 filterType: '<',
-                onChange: '&'
+                onChange: '&',
+                selected: '<'
             },
             controllerAs: '$ctrl',
             bindToController: true,

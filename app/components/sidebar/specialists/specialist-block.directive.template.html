@@ -1,0 +1,85 @@
+<div>
+    <block-directive
+            header="$ctrl.header"
+            counter="$ctrl.counting"
+            last-child="true">
+
+        <button-field>
+            <div
+                    class="btn-group custom-dropdown"
+                    dropdown
+                    is-open="$ctrl.isOpenDropdown">
+
+                <button
+                        type="button"
+                        class="btn btn-success btn-sm custom-dropdown__button"
+                        dropdown-toggle>
+
+                    <span class="glyphicon glyphicon-filter custom-dropdown__icon"></span>
+                    <span class="caret custom-dropdown__caret"></span>
+                </button>
+                <ul
+                        class="dropdown-menu custom-dropdown__list"
+                        dropdown-menu
+                        role="menu"
+                        aria-labelledby="single-button">
+
+                    <li
+                            class="custom-dropdown__list-item"
+                            ng-click="menuItem.action()"
+                            ng-repeat="menuItem in $ctrl.SPECIALISTS_MENU_LIST">
+                        <span class="{{menuItem.icon}}"></span>
+                        <span ng-bind="menuItem.name"></span>
+                    </li>
+                </ul>
+            </div>
+        </button-field>
+
+        <content-field class="specialists">
+            <div class="form-group">
+                <div class="input-group specialists__input">
+                    <input
+                            type="text"
+                            class="form-control input-sm"
+                            ng-model="$ctrl.search"
+                            typeahead-min-length="$ctrl.searchMinLength"
+                            typeahead-no-results="$ctrl.searchNoResults"
+                            typeahead-on-select="$ctrl.searchOnSelect($item, $model, $label, $event)"
+                            typeahead="item as item.name for item in $ctrl.specialistsList | filter:$viewValue"
+                            typeahead="item as item.specialty for item in $ctrl.specialistsList | filter:$viewValue"
+                            placeholder="{{$ctrl.searchText}}" />
+                                    <span
+                                            ng-if="$ctrl.search"
+                                            ng-click="$ctrl.clearSearch()"
+                                            class="glyphicon glyphicon-remove-circle specialists__clear-button text-danger"></span>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-secondary">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </button>
+                                    </span>
+
+                </div>
+                                <span
+                                        class="error text-danger"
+                                        ng-if="$ctrl.searchNoResults && $ctrl.search"
+                                        ng-bind="$ctrl.searchNoResultsText"></span>
+            </div>
+
+
+            <div class="btn-group specialists__button-group">
+                <label
+                        ng-repeat="button in $ctrl.SPECIALISTS_BUTTONS_GROUP"
+                        class="btn btn-default btn-sm specialists__button-group-item"
+                        ng-model="$ctrl.radioModel"
+                        btn-radio="button.type"
+                        ng-bind="button.name"></label>
+            </div>
+
+            <specialist-list-directive
+                    on-change="$ctrl.onChangeInList($newVal)"
+                    list="$ctrl.specialistsList"
+                    selected="$ctrl.searchSelected"
+                    filter-type="$ctrl.radioModel"></specialist-list-directive>
+        </content-field>
+    </block-directive>
+</div>

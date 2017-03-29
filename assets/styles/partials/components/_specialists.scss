@@ -37,4 +37,12 @@
       }
     }
   }
+
+  &__clear-button {
+    position: absolute;
+    right: 40px;
+    z-index: 10;
+    line-height: 28px;
+    cursor: pointer;
+  }
 }
