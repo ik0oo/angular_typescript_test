@@ -1,11 +1,28 @@
-module App {
+module PatientComponent {
     'use strict';
 
     angular
-        .module(Module)
+        .module(App.Module)
         .directive('patientDirective', directive);
 
-    class controller {
+    interface IPatientController {
+        clearPatientField: () => void;
+        searchOnSelect: (item: any, model: any, label: any, event: any) => void;
+        clearSearch: () => void;
+    }
+
+    class controller implements IPatientController {
+        private header: string;
+        private searchText: string;
+        private searchMinLength: number;
+        private searchNoResultsText: string;
+        private PATIENT_MENU_LIST: any[];
+        private searchNoResults: boolean;
+        private search: any;
+        private selectedSearch: any;
+        private patientsList: any[];
+        private handler: (data: any) => void;
+
         constructor () {
             const $ctrl = this;
 
@@ -22,17 +39,17 @@ module App {
             });
         }
 
-        private clearPatientField () {
+        public clearPatientField () {
             this.clearSearch();
             this.selectedSearch = '';
         }
 
-        private searchOnSelect (item, model, label, event) {
+        public searchOnSelect (item, model, label, event) {
             this.selectedSearch = item;
             this.handler({$patient: item.id});
         }
 
-        private clearSearch () {
+        public clearSearch () {
             const $ctrl = this;
 
             $ctrl.search = '';
@@ -110,3 +127,6 @@ module App {
         }
     }
 }
+
+
+

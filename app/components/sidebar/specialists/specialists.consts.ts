@@ -1,4 +1,4 @@
-module App {
+module SpecialistConstants {
     'use strict';
 
     const SPECIALTY_TYPES = {
@@ -15,7 +15,7 @@ module App {
     }];
 
     angular
-        .module(Module)
+        .module(App.Module)
         .constant('SPECIALTY_TYPES', SPECIALTY_TYPES)
         .constant('SPECIALISTS_BUTTONS_GROUP', SPECIALISTS_BUTTONS_GROUP);
 }

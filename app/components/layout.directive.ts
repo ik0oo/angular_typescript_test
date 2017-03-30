@@ -1,8 +1,8 @@
-module App {
+module LayoutComponent {
     'use strict';
 
     angular
-        .module(Module)
+        .module(App.Module)
         .directive('layoutDirective', directive);
 
     function directive (): ng.IDirective {

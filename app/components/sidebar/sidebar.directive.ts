@@ -1,11 +1,22 @@
-module App {
+module SidebarComponent {
     'use strict';
 
     angular
-        .module(Module)
+        .module(App.Module)
         .directive('sidebarDirective', directive);
 
-    class controller {
+    interface ISidebarController {
+        onInit: () => void;
+        handleSpecialistsList: (specialists: number[]) => void;
+        handlePatient: (patient: number) => void;
+    }
+
+    class controller implements ISidebarController {
+        private isActiveDatepicker: boolean;
+        private patientsList: any[];
+        private selectedSpecialists: number[];
+        private selectedPatient: number;
+
         constructor (private dataFactory: Services.IDataFactory) {
             const $ctrl = this;
 
@@ -16,7 +27,7 @@ module App {
             $ctrl.onInit();
         }
 
-        private onInit () {
+        public onInit () {
             const $ctrl = this;
 
             $ctrl.dataFactory
@@ -26,12 +37,13 @@ module App {
                 })
         }
 
-        private handleSpecialistsList (specialists) {
+        public handleSpecialistsList (specialists) {
             this.selectedSpecialists = specialists;
+            this.isActiveDatepicker = !!specialists.length;
             console.log(arguments);
         }
 
-        private handlePatient (patient) {
+        public handlePatient (patient) {
             this.selectedPatient = patient;
             console.log(arguments);
         }
@@ -47,7 +59,8 @@ module App {
                         handler="$ctrl.handlePatient($patient)"
                         patients-list="$ctrl.patientsList"></patient-directive>
 
-                    <recording-date-directive></recording-date-directive>
+                    <recording-date-directive
+                            is-active="$ctrl.isActiveDatepicker"></recording-date-directive>
                     <specialist-block-directive
                         handler="$ctrl.handleSpecialistsList($specialists)"></specialist-block-directive>
                 </div>

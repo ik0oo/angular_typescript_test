@@ -6,8 +6,8 @@ module Services {
         .factory('dataFactory', ['$http', ($http) => new factory($http)]);
 
     export interface IDataFactory {
-        getSpecialists(): void;
-        getPatients(): void;
+        getSpecialists(): ng.IPromise<any>;
+        getPatients(): ng.IPromise<any>;
     }
 
     class factory implements IDataFactory {

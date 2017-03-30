@@ -1,18 +1,40 @@
-module App {
+module SpecialistListComponent {
     'use strict';
 
     angular
-        .module(Module)
+        .module(App.Module)
         .directive('specialistListDirective', directive);
 
-    class controller {
-        constructor (private $scope: ng.IScope, private SPECIALTY_TYPES) {
+    interface ISpecialistListController {
+        onSelectByParent: (newVal: any) => void;
+        onChangeSpecialty: (key: number, specialty: any[]) => void;
+        filterBySpecialists: (list: any) => any;
+        filterByAlphabet: (list: any) => any;
+        filter: (type: string, list: any) => any;
+    }
+
+    class controller implements ISpecialistListController {
+        private currentType: string;
+        private byAlphabet: any[];
+        private bySpecialists: any;
+        private models: any;
+        private specialtyModels: any;
+        private templates: any;
+        private list: any[];
+        private filterType: string;
+        private onChange: (data: any) => void;
+        private selected: any;
+
+        constructor (
+            private $scope: ng.IScope,
+            private SPECIALTY_TYPES: any) {
+
             const $ctrl = this;
 
             (<any>Object).assign($ctrl, {
-                currentType: null,
-                byAlphabet: null,
-                bySpecialist: null,
+                currentType: '',
+                byAlphabet: [],
+                bySpecialist: [],
                 models: {},
                 specialtyModels: {},
                 SPECIALTY_TYPES,
@@ -26,7 +48,7 @@ module App {
             $scope.$watch('$ctrl.selected', $ctrl.onSelectByParent.bind($ctrl))
         }
 
-        private onSelectByParent (newVal) {
+        public onSelectByParent (newVal: any) {
             const $ctrl = this;
 
             if (newVal == null) return false;
@@ -37,7 +59,7 @@ module App {
             $ctrl.models[newVal] = true;
         }
 
-        private onChangeSpecialty (key, specialty) {
+        public onChangeSpecialty (key: number, specialty: any[]) {
             const $ctrl = this;
             const state = $ctrl.specialtyModels[key];
 
@@ -46,10 +68,10 @@ module App {
             });
         }
 
-        private filterBySpecialists (list: any) {
+        public filterBySpecialists (list: any) {
             const specList = {};
 
-            list.forEach(({specialty, name, room, id}) => {
+            list.forEach(({specialty, name, room, id}): void => {
                 typeof specList[specialty] !== 'object' && (specList[specialty] = []);
 
                 specList[specialty].push({
@@ -62,8 +84,8 @@ module App {
             return specList;
         }
 
-        private filterByAlphabet (list: any) {
-            return list.map(({specialty, name, room, id}) => {
+        public filterByAlphabet (list: any) {
+            return list.map(({specialty, name, room, id}): any => {
                 return {
                     specialty,
                     name,
@@ -73,7 +95,7 @@ module App {
             });
         }
 
-        private filter (type, list) {
+        public filter (type: string, list: any[]) {
             const $ctrl = this;
 
             if (!list) return;

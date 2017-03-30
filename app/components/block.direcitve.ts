@@ -1,11 +1,15 @@
-module App {
+module BlockComponent {
     'use strict';
 
     angular
-        .module(Module)
+        .module(App.Module)
         .directive('blockDirective', directive);
 
     class controller {
+        private header: string;
+        private lastChild: boolean;
+        private counter: any;
+
         constructor () {
             const $ctrl = this;
         }

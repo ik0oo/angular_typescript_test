@@ -1,15 +1,37 @@
-module App {
+module SpecialistBlockComponent {
     'use strict';
 
     angular
-        .module(Module)
+        .module(App.Module)
         .directive('specialistBlockDirective', directive);
 
-    class controller {
+    interface ISpecialistBlockController {
+        onInit: () => void;
+        selectAll: () => void;
+        cancelAll: () => void;
+        onChangeInList: (newVal: any) => void;
+        clearSearch: () => void;
+        searchOnSelect: (item: any, model: any, label: any, event: any) => void;
+    }
+
+    class controller implements ISpecialistBlockController {
+        private header: string;
+        private searchText: string;
+        private searchNoResultsText: string;
+        private searchMinLength: number;
+        private SPECIALISTS_MENU_LIST: any;
+        private radioModel: string;
+        private counting: any;
+        private specialistsList: any;
+        private searchSelected: any;
+        private handler: (data: any) => void;
+        private search: any;
+        private searchNoResults: boolean;
+
         /*@ngInject*/
         constructor (
-            private SPECIALISTS_BUTTONS_GROUP,
-            private SPECIALTY_TYPES,
+            private SPECIALISTS_BUTTONS_GROUP: any,
+            private SPECIALTY_TYPES: any,
             private dataFactory: Services.IDataFactory) {
 
             const $ctrl = this;
@@ -39,7 +61,7 @@ module App {
             $ctrl.onInit();
         }
 
-        private onInit () {
+        public onInit () {
             const $ctrl = this;
 
             $ctrl.dataFactory
@@ -50,7 +72,7 @@ module App {
                 });
         }
 
-        private selectAll () {
+        public selectAll () {
             const $ctrl = this;
 
             $ctrl.searchSelected = $ctrl.specialistsList.map(({id}) => {
@@ -58,7 +80,7 @@ module App {
             });
         }
 
-        private cancelAll () {
+        public cancelAll () {
             const $ctrl = this;
 
             $ctrl.searchSelected = $ctrl.specialistsList.map(({id}) => {
@@ -66,7 +88,7 @@ module App {
             });
         }
 
-        private onChangeInList (newVal) {
+        public onChangeInList (newVal) {
             const $ctrl = this;
             let counter = 0;
             let arr = [];
@@ -82,14 +104,14 @@ module App {
             $ctrl.handler({$specialists: arr});
         }
 
-        private clearSearch () {
+        public clearSearch () {
             const $ctrl = this;
 
             $ctrl.search = '';
             $ctrl.searchNoResults = false;
         }
 
-        private searchOnSelect (item, model, label, event) {
+        public searchOnSelect (item, model, label, event) {
             const $ctrl = this;
 
             $ctrl.searchSelected = item.id;

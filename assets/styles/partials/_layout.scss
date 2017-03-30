@@ -1,5 +1,9 @@
 @import "../globals/all";
 
+*:focus {
+  outline: none !important;
+}
+
 body {}
 
 .layout {
