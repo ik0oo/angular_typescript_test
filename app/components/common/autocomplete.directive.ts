@@ -1,8 +1,8 @@
-module App {
+module AutocompleteComponent {
     'use strict';
 
     angular
-        .module(Module)
+        .module(App.Module)
         .directive('autocompleteDirective', directive);
 
     class controller {

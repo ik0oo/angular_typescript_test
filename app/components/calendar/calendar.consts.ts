@@ -1,4 +1,4 @@
-module App {
+module CalendarConstants {
     'use strict';
 
     const CALENDAR_BUTTONS_GROUP = [{
@@ -13,6 +13,6 @@ module App {
     }];
 
     angular
-        .module(Module)
+        .module(App.Module)
         .constant('CALENDAR_BUTTONS_GROUP', CALENDAR_BUTTONS_GROUP);
 }

@@ -1,8 +1,8 @@
-module App {
+module CustomDropdownComponent {
     'use strict';
 
     angular
-        .module(Module)
+        .module(App.Module)
         .directive('customDropdownDirective', directive);
 
     class controller {

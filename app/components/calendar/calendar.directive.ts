@@ -1,8 +1,8 @@
-module App {
+module CalendarComponent {
     'use strict';
 
     angular
-        .module(Module)
+        .module(App.Module)
         .directive('calendarDirective', directive);
 
 
