@@ -1,0 +1,41 @@
+.datepicker {
+  ul table {
+    .start-date button {
+        span {
+          border-radius: 100%;
+          border: 2px solid $cl-blue-3f;
+        }
+    }
+
+    .full .btn {
+      background-color: $cl-blue-b3;
+
+      &.active {
+        background-color: $cl-blue-b3;
+      }
+
+      span {
+        color: black;
+      }
+    }
+
+    .btn {
+      &.active {
+        background-color: inherit;
+
+        span {
+          color: $cl-black;
+        }
+      }
+
+      &:hover {
+        background-color: $cl-blue-3f !important;
+
+        span {
+          color: $cl-white;
+        }
+      }
+    }
+
+  }
+}

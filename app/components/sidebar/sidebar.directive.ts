@@ -9,6 +9,7 @@ module SidebarComponent {
         onInit: () => void;
         handleSpecialistsList: (specialists: number[]) => void;
         handlePatient: (patient: number) => void;
+        handleDatepicker: (selectedDate: any) => void;
     }
 
     class controller implements ISidebarController {
@@ -32,20 +33,22 @@ module SidebarComponent {
 
             $ctrl.dataFactory
                 .getPatients()
-                .then(patients => {
-                    $ctrl.patientsList = patients.data;
-                })
+                .then(patients => $ctrl.patientsList = patients);
         }
 
-        public handleSpecialistsList (specialists) {
+        public handleSpecialistsList (specialists: number[]) {
             this.selectedSpecialists = specialists;
             this.isActiveDatepicker = !!specialists.length;
             console.log(arguments);
         }
 
-        public handlePatient (patient) {
+        public handlePatient (patient: number) {
             this.selectedPatient = patient;
             console.log(arguments);
+        }
+
+        public handleDatepicker (selectedDate) {
+            console.log(selectedDate);
         }
     }
 
@@ -60,7 +63,10 @@ module SidebarComponent {
                         patients-list="$ctrl.patientsList"></patient-directive>
 
                     <recording-date-directive
+                            selected-specialists="$ctrl.selectedSpecialists"
+                            handler="$ctrl.handleDatepicker($selectedDate)"
                             is-active="$ctrl.isActiveDatepicker"></recording-date-directive>
+
                     <specialist-block-directive
                         handler="$ctrl.handleSpecialistsList($specialists)"></specialist-block-directive>
                 </div>

@@ -67,7 +67,7 @@ module SpecialistBlockComponent {
             $ctrl.dataFactory
                 .getSpecialists()
                 .then(specList => {
-                    $ctrl.specialistsList =  specList.data;
+                    $ctrl.specialistsList =  specList;
                     $ctrl.counting.from = $ctrl.specialistsList.length;
                 });
         }
