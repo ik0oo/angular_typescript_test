@@ -2,7 +2,18 @@
   width: 75%;
 
   &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
     background-color: $bg-color;
+
+    &-headline {
+      margin: 0;
+    }
   }
 
+  &__main {
+    padding: 10px 20px;
+  }
 }

@@ -50,6 +50,10 @@ module Services {
             return events;
         }
 
+        public createFullSchedule (schedule, period) {
+
+        }
+
         private filterDays (schedule: any) {
             // return array of active days for selected specialists
 

@@ -26,7 +26,7 @@ module CalendarComponent {
             template: `
                 <div class="calendar">
                     <header class="calendar__header block">
-                        <h2>Расписание специалистов</h2>
+                        <h3 class="calendar__header-headline">Расписание специалистов</h3>
 
                         <div class="btn-group">
                             <label
@@ -37,6 +37,10 @@ module CalendarComponent {
                                     ng-bind="button.name"></label>
                         </div>
                     </header>
+
+                    <div class="calendar__main">
+                        <date-item-directive></date-item-directive>
+                    </div>
                 <div>
             `,
             scope: {},

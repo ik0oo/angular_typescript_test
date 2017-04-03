@@ -22,9 +22,17 @@ module RecordingDateComponent {
 
         constructor (
             private $scope: ng.IScope,
-            private dateFactory: Services.IDateFactory) {
+            private dateFactory: Services.IDateFactory,
+            private datepickerPopupConfig: any) {
 
             const $ctrl = this;
+
+            console.log(datepickerPopupConfig);
+
+            datepickerPopupConfig.closeOnDateSelection = false;
+            datepickerPopupConfig.closeText = "ОК";
+            datepickerPopupConfig.clearText = "Отмена";
+            datepickerPopupConfig.currentText = "Сегодня";
 
             (<any>Object).assign($ctrl, {
                 header: 'Дата Записи',
@@ -38,7 +46,9 @@ module RecordingDateComponent {
                 }
             });
 
-            $scope.$watch('$ctrl.datepicker', (newVal) => $ctrl.handler({$selectedDate: newVal}));
+            $scope.$watch('$ctrl.isOpenPicker', newVal => {
+                if (!newVal) $ctrl.handler({$selectedDate: $ctrl.datepicker});
+            });
         }
 
         private getDayClass (date, mode) {

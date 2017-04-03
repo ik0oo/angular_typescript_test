@@ -17,6 +17,7 @@ module SidebarComponent {
         private patientsList: any[];
         private selectedSpecialists: number[];
         private selectedPatient: number;
+        private selectedDate: any;
 
         constructor (private dataFactory: Services.IDataFactory) {
             const $ctrl = this;
@@ -48,7 +49,15 @@ module SidebarComponent {
         }
 
         public handleDatepicker (selectedDate) {
-            console.log(selectedDate);
+            if (this.toDate(this.selectedDate) != this.toDate(selectedDate)) {
+                this.selectedDate = selectedDate;
+
+                console.log(this.selectedDate);
+            }
+        }
+
+        private toDate (date) {
+            return new Date(date).getTime();
         }
     }
 

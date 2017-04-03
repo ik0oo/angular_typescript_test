@@ -1,0 +1,61 @@
+.date-item {
+  max-width: 200px;
+  color: $cl-black-35;
+  text-align: center;
+  background-color: $cl-blue-d4;
+
+  &:not(:last-child) {
+    margin-right: 5px;
+  }
+
+  &__row {
+    padding: 5px;
+  }
+
+  &__date {
+    background-color: $cl-black-35;
+    color: $cl-white;
+  }
+
+  &__name,
+  &__specialty {
+    background-color: $cl-gray-94;
+    color: $cl-white;
+  }
+
+  &__name {
+    border-bottom: 1px solid $cl-white;
+  }
+
+  &__specialty {
+    font-style: italic;
+  }
+
+  &__mu {
+    background-color: $cl-blue-8e;
+  }
+
+  &__info {
+    background-color: $cl-green-a4;
+
+    span {
+      display: block;
+    }
+  }
+
+  &__schedule {
+    background-color: $bg-color;
+    text-align: left;
+
+    &-item {
+      padding: 2px 5px;
+      height: 24px;
+      border-bottom: 1px dashed $cl-black-35;
+
+      &--busy {
+        background-color: $cl-gray-94;
+        height: auto;
+      }
+    }
+  }
+}
