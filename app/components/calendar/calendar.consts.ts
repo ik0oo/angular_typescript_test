@@ -2,13 +2,13 @@ module CalendarConstants {
     'use strict';
 
     const CALENDAR_BUTTONS_GROUP = [{
-        id: 1,
+        count: 0,
         name: '1 день'
     }, {
-        id: 2,
+        count: 1,
         name: '2 дня'
     }, {
-        id: 3,
+        count: 6,
         name: 'Неделя'
     }];
 
