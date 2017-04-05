@@ -100,16 +100,13 @@ module Services {
                         .filter(day => spec.schedule.defaultDays.some(item => item.id === day.getDay()))
                         .map(day => {
 
-                            console.log(day);
-                            return (<any>Object).assign(spec, {
+                            return (<any>Object).assign({}, spec, {
                                 date: day
                             })
 
                         })
                     );
                 });
-
-            console.log(list);
 
             return list;
         }
@@ -149,8 +146,8 @@ module Services {
             }
 
             return list.map(item => {
-                let hours = new Date(item).getHours();
-                let minutes = new Date(item).getMinutes();
+                let hours: any = new Date(item).getHours();
+                let minutes: any = new Date(item).getMinutes();
 
                 if (hours < 10) hours = '0' + hours;
                 if (minutes < 10) minutes = '0' + minutes;

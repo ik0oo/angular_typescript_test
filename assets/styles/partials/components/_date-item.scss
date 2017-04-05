@@ -1,11 +1,12 @@
 .date-item {
+  min-width: 200px;
   max-width: 200px;
   color: $cl-black-35;
   text-align: center;
   background-color: $cl-blue-d4;
 
   &:not(:last-child) {
-    margin-right: 5px;
+    margin-right: 10px;
   }
 
   &__row {
@@ -44,17 +45,21 @@
   }
 
   &__schedule {
+    $height: 30px;
+
     background-color: $bg-color;
     text-align: left;
 
     &-item {
-      padding: 2px 5px;
-      height: 24px;
+      padding: 0 5px;
+      height: $height;
+      line-height: $height;
       border-bottom: 1px dashed $cl-black-35;
 
       &--busy {
         background-color: $cl-gray-94;
-        height: auto;
+        height: $height * 2;
+        font-weight: bold;
       }
     }
   }

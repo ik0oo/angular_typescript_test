@@ -1,5 +1,13 @@
 .calendar {
   width: 75%;
+  overflow: hidden;
+
+  &__list {
+    width: 100%;
+    display: flex;
+    overflow: auto;
+    padding-bottom: 20px;
+  }
 
   &__header {
     display: flex;
@@ -15,6 +23,5 @@
 
   &__main {
     padding: 10px 20px;
-    display: flex;
   }
 }

@@ -11,11 +11,16 @@ module App {
 
     class controller {
         private day: any;
+        private timeSchedule: any[];
 
-        constructor(private dateFactory: Services.IDateFactory) {
+        constructor(
+            private $scope: ng.IScope,
+            private dateFactory: Services.IDateFactory) {
             const $ctrl = this;
 
             (<any>Object).assign($ctrl, {});
+
+            $scope.$watch('$ctrl.day', () => this.getTimeSchedule())
         }
 
         private getDayInfo (date, range) {
@@ -34,7 +39,7 @@ module App {
             const dayInfo = this.dateFactory.hasInfoForDay(this.day.date, range);
             const list = [];
 
-            dayInfo.forEach(item => {
+            dayInfo && dayInfo.forEach(item => {
                 let splitStart = item.start.split(':');
                 let splitEnd = item.end.split(':');
                 let start = {
@@ -54,37 +59,59 @@ module App {
             return list;
         }
 
-        private getTimeSchedule (spec) {
+        private getTimeSchedule () {
             const ranges = this.day.ranges;
-            const list = [];
+            let list = this.getTimeRange({
+                defaultDays: [this.day.schedule.hours]
+            }, 'default');
 
             for (let key in ranges) {
                 if (ranges[key]) {
-                    list.push(
-                        ...this.getTimeRange(ranges[key], key)
-                    );
+                    let timing = this.getTimeRange(ranges[key], key);
+
+                    list = list.map(item => {
+                        let redefinedTime = timing.filter(time => time.time === item.time)[0];
+
+                        if (redefinedTime) return redefinedTime;
+                        return item;
+                    }).filter((item, index, array) => {
+                        if (index > 0) {
+                            let prevItem = array[index - 1];
+
+                            if (
+                                item.className !== 'appointment' &&
+                                prevItem.className === item.className
+                            ) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    });
                 }
             }
 
+            this.timeSchedule = list || [];
+        }
 
-            //const splitStart = spec.schedule.hours.start.split(':');
-            //const splitEnd = spec.schedule.hours.end.split(':');
-            //const start = {
-            //    hours: parseInt(splitStart[0]),
-            //    minutes: parseInt(splitStart[1])
-            //};
-            //const end = {
-            //    hours: parseInt(splitEnd[0]),
-            //    minutes: parseInt(splitEnd[1])
-            //};
+        private render (date: any) {
+            switch (date.className) {
+                case 'free':
+                case 'default':
+                    return 'Врач не принимает';
 
-            //return this.dateFactory.createTimeSchedule(start, end, spec.step);
+                case 'documents':
+                    return 'Работа с документами';
 
-            return list || [];
+                case 'learning':
+                    return 'Обучение';
+
+                default:
+                    return date.string;
+            }
         }
     }
 
-    function directive():ng.IDirective {
+    function directive(scheduleFactory: Services.ISchedule):ng.IDirective {
         return {
             restrict: 'E',
             template: `
@@ -125,18 +152,18 @@ module App {
 
                     <div class="date-item__schedule">
                         <div class="date-item__schedule-item"
-                                ng-repeat="date in $ctrl.getTimeSchedule($ctrl.day)"
-                                ng-bind="date.string + ' ' date.className">
+                                ng-repeat="date in $ctrl.timeSchedule"
+                                ng-class="{'date-item__schedule-item--busy': date.className !== 'appointment'}"
+                                ng-bind="$ctrl.render(date)">
                         </div>
-
-                        <!--<div class="date-item__schedule-item date-item__schedule-item&#45;&#45;busy">-->
-                            <!--Работа с документами-->
-                        <!--</div>-->
                     </div>
                 </div>
             `,
             scope: {
                 day: '<'
+            },
+            link (scope, element, attrs) {
+                scheduleFactory.add(element.find('.date-item__schedule'));
             },
             controllerAs: '$ctrl',
             bindToController: true,

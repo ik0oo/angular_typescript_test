@@ -6,7 +6,7 @@ module CalendarComponent {
         .directive('calendarDirective', directive);
 
 
-    class testCtrl {
+    class controller {
         private specialists: any[];
         private date: any;
         private radioModel: number;
@@ -15,7 +15,8 @@ module CalendarComponent {
         constructor (
             private $scope: ng.IScope,
             private CALENDAR_BUTTONS_GROUP: any,
-            private dateFactory: Services.IDateFactory
+            private dateFactory: Services.IDateFactory,
+            private scheduleFactory: Services.ISchedule
         ) {
             const $ctrl = this;
 
@@ -26,14 +27,22 @@ module CalendarComponent {
             });
 
             $scope.$watch('$ctrl.date', () => this.update());
+            $scope.$watch('$ctrl.specialists', () => {
+                if ($ctrl.date) this.update();
+            });
             $scope.$watch('$ctrl.radioModel', () => this.update());
+            $scope.$watch('$ctrl.daysList', () => this.scheduleFactory.clear());
+            $scope.$on('ngRepeatFinished', () => this.scheduleFactory.update())
         }
 
         private update () {
             if (!this.date) return;
 
-            this.daysList = this.dateFactory.createFullSchedule(this.specialists, this.radioModel, this.date);
-            console.log(this.daysList);
+            this.daysList = this.dateFactory
+                .createFullSchedule(this.specialists, this.radioModel, this.date)
+                .map(item => (<any>Object).assign({}, item, {
+                    key: `_${Math.random().toString(36).substr(2,9)}`
+                }));
         }
     }
 
@@ -57,11 +66,18 @@ module CalendarComponent {
                     </header>
 
                     <div class="calendar__main">
-                        <date-item-directive
-                                class="date-item"
-                                ng-if="$ctrl.daysList.length"
-                                ng-repeat="day in $ctrl.daysList"
-                                day="day"></date-item-directive>
+                        <div class="calendar__list" scrollbar="$ctrl.daysList.length">
+                            <div
+                                    class="date-item"
+                                    ng-if="$ctrl.daysList.length"
+                                    ng-repeat="day in $ctrl.daysList | orderBy: 'date' as filteredResult track by day.key"
+                                    on-finish-render="ngRepeatFinished"
+                                    >
+                                <date-item-directive
+                                        day="day"></date-item-directive>
+                            </div>
+                        </div>
+
 
                         <div ng-if="!$ctrl.daysList.length">
                             Расписане не доступно
@@ -75,7 +91,7 @@ module CalendarComponent {
             },
             controllerAs: '$ctrl',
             bindToController: true,
-            controller: testCtrl
+            controller
         }
     }
 }
