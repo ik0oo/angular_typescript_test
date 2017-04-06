@@ -59,7 +59,7 @@
 
                         <div ng-if="date.hasAppointment">
                             <div
-                                    ng-repeat="a in date.appointment"
+                                    ng-repeat="a in date.appointment track by $index"
                                     ng-bind="a.name"></div>
                         </div>
 
