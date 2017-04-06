@@ -1,6 +1,8 @@
 .date-item {
-  min-width: 200px;
-  max-width: 200px;
+  $width: 270px;
+
+  min-width: $width;
+  max-width: $width;
   color: $cl-black-35;
   text-align: center;
   background-color: $cl-blue-d4;
@@ -55,11 +57,49 @@
       height: $height;
       line-height: $height;
       border-bottom: 1px dashed $cl-black-35;
+      cursor: pointer;
 
       &--busy {
         background-color: $cl-gray-94;
         height: $height * 2;
         font-weight: bold;
+        cursor: default;
+      }
+    }
+
+    &-button {
+      width: 100%;
+      background-color: transparent;
+      border: none;
+      text-align: left;
+      font-size: 12px;
+    }
+  }
+
+  &__dropdown {
+    padding: 10px;
+    font-size: 12px;
+
+    &-header {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    &-item {
+      &--create {
+        color: $cl-blue-26;
+      }
+
+      &--cancel {
+        color: $cl-red-db;
+      }
+
+      &--disabled {
+        color: $cl-gray-94;
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid $cl-black-35;
       }
     }
   }

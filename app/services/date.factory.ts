@@ -11,6 +11,8 @@ module Services {
         createFullSchedule(schedule: any, period: number, startDate: any): any[];
         hasInfoForDay(date: any, range: any): any[];
         createTimeSchedule(start: any, end: any, step: number, className: string): any;
+        createDateNullHours(date?: any): any;
+        parseDate(date: any): any;
     }
 
     class Factory implements IDateFactory {
@@ -35,6 +37,17 @@ module Services {
 
         public getMinDate () {
             return +new Date;
+        }
+
+        public parseDate (date: any) {
+            let day = date.getDate();
+            let month = date.getMonth() + 1;
+            let year = date.getFullYear();
+
+            if (day < 10) day = '0' + day;
+            if (month < 10) month = '0' + month;
+
+            return `${day}.${month}.${year}`;
         }
 
         private getMaxDate () {
@@ -126,7 +139,7 @@ module Services {
             });
         }
 
-        private createDateNullHours (date?: any) {
+        public createDateNullHours (date?: any) {
             return date ? new Date(date).setHours(0,0,0,0) : new Date().setHours(0,0,0,0);
         }
 

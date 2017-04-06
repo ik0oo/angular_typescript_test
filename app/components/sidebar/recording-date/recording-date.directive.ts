@@ -27,8 +27,6 @@ module RecordingDateComponent {
 
             const $ctrl = this;
 
-            console.log(datepickerPopupConfig);
-
             datepickerPopupConfig.closeOnDateSelection = false;
             datepickerPopupConfig.closeText = "ОК";
             datepickerPopupConfig.clearText = "Отмена";

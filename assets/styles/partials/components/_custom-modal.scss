@@ -1,0 +1,10 @@
+.custom-modal {
+  padding: 20px;
+
+  &__item {
+
+    &:not(:last-child){
+      margin-bottom: 20px;
+    }
+  }
+}
