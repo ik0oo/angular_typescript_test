@@ -1,7 +1,7 @@
 <div>
     <div
             class="date-item__row date-item__date"
-            ng-bind="$ctrl.day.date">Пн. 16 сен</div>
+            ng-bind="$ctrl.dateFactory.getFullDate($ctrl.day.date)"></div>
 
     <div
             class="date-item__row date-item__name"
@@ -45,7 +45,7 @@
 
             <div
                     dropdown
-                    is-open="_open + $index"
+                    is-open="false"
                     ng-if="date.className === 'appointment'">
 
                 <button

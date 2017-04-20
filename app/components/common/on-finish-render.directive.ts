@@ -7,7 +7,7 @@ module App {
 
     function directive($timeout: ng.ITimeoutService):ng.IDirective {
         return {
-            link (scope, element, attrs) {
+            link (scope: any, element: any, attrs: any) {
                 if (scope.$last === true) {
                     $timeout(function () {
 

@@ -11,7 +11,7 @@ module App {
             scope: {
                 scrollbar: '<'
             },
-            link (scope, element, attrs) {
+            link (scope: any, element: any, attrs: any) {
                 element.css({
                     position: 'relative'
                 });

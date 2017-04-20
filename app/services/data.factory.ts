@@ -19,7 +19,7 @@ module Services {
         private patients: any;
 
         /*@ngInject*/
-        constructor (private $http: ng.IHttpService, private $q: ng.IQService) {
+        constructor (private $http: ng.IHttpService, private $q: any) {
             this.speclialists = {};
             this.patients = {};
         }
@@ -86,9 +86,14 @@ module Services {
 
         public createAppointment (id: number, date: any, time: string) {
             const spec = this.getSpecialistById(id);
+            const generateId: any = () :number => {
+              return parseInt(String(Math.random() * (5 - 1) + 1));
+            };
+
+            if (spec.patients === null) spec.patients = [];
 
             spec.patients.push({
-                id: parseInt(Math.random() * (5 - 1) + 1),
+                id: generateId(),
                 date: this.parseDate(date),
                 time
             });

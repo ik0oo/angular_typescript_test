@@ -13,12 +13,15 @@ module Services {
         createTimeSchedule(start: any, end: any, step: number, className: string): any;
         createDateNullHours(date?: any): any;
         parseDate(date: any): any;
+        getFullDate (date: any): string;
     }
 
     class Factory implements IDateFactory {
         private defaultWeekCounter: number;
         private twoWeeks: number;
         private dayKeys: any;
+        private russianDays: any;
+        private russianMonths: any;
 
         /*@ngInject*/
         constructor (private dataFactory: Services.IDataFactory) {
@@ -33,6 +36,39 @@ module Services {
                 friday   : 5,
                 saturday : 6
             };
+
+            this.russianDays = {
+              0: 'Вс',
+              1: 'Пн',
+              2: 'Вт',
+              3: 'Ср',
+              4: 'Чт',
+              5: 'Пт',
+              6: 'Сб'
+            };
+
+            this.russianMonths = {
+              0:  'янв',
+              1:  'фев',
+              2:  'март',
+              3:  'апр',
+              4:  'май',
+              5:  'июнь',
+              6:  'июль',
+              7:  'авг',
+              8:  'сен',
+              9:  'окн',
+              10: 'ноя',
+              11: 'дек',
+            };
+        }
+
+        public getFullDate (date: any) {
+            const day = this.russianDays[date.getDay()];
+            const month = this.russianMonths[date.getMonth()];
+            const number = date.getDate();
+
+            return `${day}. ${number} ${month}`;
         }
 
         public getMinDate () {
